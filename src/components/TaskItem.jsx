@@ -1,15 +1,25 @@
-import * as React from 'react';
+import { useState } from 'react';
 import * as Checkbox from '@radix-ui/react-checkbox';
-import { CheckIcon, TrashIcon } from '@radix-ui/react-icons';
 import * as Dialog from '@radix-ui/react-dialog';
-
+import { CheckIcon, TrashIcon } from '@radix-ui/react-icons';
 import '../styles/taskItem.css';
 
+/**
+ * A component representing a single task in the task list.
+ * @param {object} props.task The task object to display.
+ * @param {function} props.onToggle The function to call when the task's completion status is toggled.
+ * @param {function} props.onDelete The function to call when the task is deleted.
+ */
 export function TaskItem({ task, onToggle, onDelete }) {
-  const [open, setOpen] = React.useState(false);
+  // State to control the delete confirmation dialog.
+  const [open, setOpen] = useState(false);
 
-  // Format creation date
-  const formattedDate = new Date(task.createdAt).toLocaleDateString();
+  // Format the task date for display.
+  const formattedDate = new Date(task.date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  });
 
   return (
     <div className={`task-item ${task.completed ? 'completed' : 'pending'}`}>

@@ -50,10 +50,12 @@ export function useTasks(username) {
     );
   };
 
+  //delete user task
   const deleteTask = (id) => {
     setTasksForUser(tasks.filter(task => task.id !== id));
   };
 
+  //to check and uncheck task completion
   const toggleTask = (id) => {
     updateTask(
       id,
@@ -61,6 +63,7 @@ export function useTasks(username) {
     );
   };
 
+  //task filteration based on completion status
   const filteredTasks = useMemo(
     () => ({
       all: tasks,

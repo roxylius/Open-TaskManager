@@ -18,6 +18,7 @@ export function useLocalStorage(key, defaultValue) {
     } catch (error) {
       console.error(`Error reading localStorage key "${key}":`, error);
     }
+    
     // If nothing is in localStorage, return the default value.
     // The useEffect below will then persist this default value.
     return defaultValue;
@@ -31,7 +32,7 @@ export function useLocalStorage(key, defaultValue) {
     } catch (error) {
       console.error(`Error setting localStorage key "${key}":`, error);
     }
-  }, [key, value]); // Dependency array ensures this runs on change.
+  }, [key, value]);
 
   // Return the state value and the setter function.
   return [value, setValue];

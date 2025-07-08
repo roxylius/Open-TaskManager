@@ -1,3 +1,5 @@
+// src/components/TaskForm.jsx
+// The main component for displaying and managing tasks.
 import { useState } from 'react';
 import { MagnifyingGlassIcon, PlusIcon, ExitIcon } from '@radix-ui/react-icons';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -6,22 +8,35 @@ import { TaskFilter } from './TaskFilter';
 import { TaskList } from './TaskList';
 import { useTasks } from '../hooks/useTasks';
 
+/**
+ * A form component for adding, viewing, and filtering tasks.
+ * @param {{onLogout: function, username: string}} props The props object.
+ * @param {function} props.onLogout Callback function to handle user logout.
+ * @param {string} props.username The username of the current user.
+ * @returns {JSX.Element} The rendered TaskForm component.
+ */
 const TaskForm = ({ onLogout, username }) => {
+  // State for expanding the search input.
   const [searchExpanded, setSearchExpanded] = useState(false);
+  // State for the search query.
   const [searchQuery, setSearchQuery] = useState('');
+  // State for the current filter.
   const [filter, setFilter] = useState('all');
+  // State for the new task input.
   const [newTask, setNewTask] = useState('');
+  // Custom hook for task management.
   const { tasks, filteredTasks, addTask, deleteTask, toggleTask } = useTasks(username);
 
+  // Handles adding a new task.
   const handleAddTask = (e) => {
     e.preventDefault();
     if (newTask.trim()) {
-      console.log("Triggered handleAddTask");
       addTask({ title: newTask });
       setNewTask('');
     }
   };
 
+  // Filters and returns the tasks to be displayed.
   const displayedTasks = () => {
     let taskList = filteredTasks[filter];
     if (searchQuery) {
@@ -94,7 +109,7 @@ const TaskForm = ({ onLogout, username }) => {
           </form>
         </div>
       </div>
-    // </div>
+    </div>
   );
 };
 

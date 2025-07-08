@@ -5,6 +5,7 @@ import '../styles/login.css';
 const Login = ({ onLogin }) => {
     // Username state
     const [username, setUsername] = useLocalStorage('username', '');
+
     // Users list from localStorage
     const [users, setUsers] = useLocalStorage('users', []);
 
@@ -37,22 +38,24 @@ const Login = ({ onLogin }) => {
     return (
         <div className='form-container'>
             {/* Circles are moved outside the form to prevent clipping */}
-                <div className="circles login-circ">
-                    <div className="circle circle-1"></div>
-                    <div className="circle circle-2"></div>
-                </div>
-        <form onSubmit={handleSubmit}>
-            <div className="form__field">
-                <input
-                    type="text"
-                    className={`form__input ${isValidUser ? 'form__input--valid' : 'form__input--invalid'}`}
-                    value={username}
-                    onChange={e => setUsername(e.target.value)}
-                    required
-                />
-                <span className="icon">{isValidUser ? '😃' : '😳'}</span>
+            <div className="circles login-circ">
+                <div className="circle circle-1"></div>
+                <div className="circle circle-2"></div>
             </div>
-        </form>
+            
+            <form onSubmit={handleSubmit}>
+                <div className="form__field">
+                    <input
+                        type="text"
+                        className={`form__input ${isValidUser ? 'form__input--valid' : 'form__input--invalid'}`}
+                        value={username}
+                        onChange={e => setUsername(e.target.value)}
+                        required
+                    />
+                    <span className="icon">{isValidUser ? '😃' : '😳'}</span>
+                </div>
+            </form>
+            
         </div>
     );
 };

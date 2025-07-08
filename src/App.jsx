@@ -1,34 +1,34 @@
-import { useState } from 'react'
-
-//import components
+import { useState } from 'react';
 import Login from './components/Login';
 import TaskForm from './components/TaskForm';
-
-import './styles/App.css'
+import './styles/App.css';
 import { useLocalStorage } from './hooks/useLocalStorage';
 
-function App() {
-  const [isLoggedIn, setIsLoggedIn] = useLocalStorage('isLoggedIn', false);
-  const [username, setUsername] = useLocalStorage('username', '');
 
-  const handleLogin = () => {
-    setIsLoggedIn(true);
+// component, which handles routing between the login and task form.
+function App() {
+  // State for current user's username.
+  const [user, setUser] = useLocalStorage('user', null);
+
+  // Handles the login action.
+  const handleLogin = (username) => {
+    setUser(username);
   };
 
+  // Handles the logout action.
   const handleLogout = () => {
-    setIsLoggedIn(false);
-    setUsername('');
+    setUser(null);
   };
 
   return (
-    <>
-      {isLoggedIn ? (
-        <TaskForm onLogout={handleLogout} username={username}/>
+    <div className="App">
+      {user ? (
+        <TaskForm username={user} onLogout={handleLogout} />
       ) : (
         <Login onLogin={handleLogin} />
       )}
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
