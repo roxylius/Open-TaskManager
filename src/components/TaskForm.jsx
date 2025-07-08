@@ -10,10 +10,8 @@ import { useTasks } from '../hooks/useTasks';
 
 /**
  * A form component for adding, viewing, and filtering tasks.
- * @param {{onLogout: function, username: string}} props The props object.
  * @param {function} props.onLogout Callback function to handle user logout.
  * @param {string} props.username The username of the current user.
- * @returns {JSX.Element} The rendered TaskForm component.
  */
 const TaskForm = ({ onLogout, username }) => {
   // State for expanding the search input.

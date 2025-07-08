@@ -11,7 +11,7 @@ export function useLocalStorage(key, defaultValue) {
   // Initialize state from localStorage or use default.
   const [value, setValue] = useState(() => {
     try {
-      const item = window.localStorage.getItem(key);
+      const item = localStorage.getItem(key);
       if (item && item !== 'undefined') {
         return JSON.parse(item);
       }
@@ -28,7 +28,8 @@ export function useLocalStorage(key, defaultValue) {
   useEffect(() => {
     try {
       // This effect runs whenever 'value' or 'key' changes.
-      window.localStorage.setItem(key, JSON.stringify(value));
+      console.log("new value set: ",JSON.stringify(value)," for key: ",key);
+      localStorage.setItem(key, JSON.stringify(value));
     } catch (error) {
       console.error(`Error setting localStorage key "${key}":`, error);
     }

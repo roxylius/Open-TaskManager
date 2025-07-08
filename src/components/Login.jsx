@@ -2,12 +2,9 @@ import { useState, useEffect } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import '../styles/login.css';
 
-const Login = ({ onLogin }) => {
+const Login = ({ onLogin, users, setUsers }) => {
     // Username state
     const [username, setUsername] = useLocalStorage('username', '');
-
-    // Users list from localStorage
-    const [users, setUsers] = useLocalStorage('users', []);
 
     // Custom validation: username exists and > 4 chars
     const [isValidUser, setIsValidUser] = useState(users.includes(username) && username.length >= 4);
@@ -22,14 +19,15 @@ const Login = ({ onLogin }) => {
     useEffect(() => {
         if (isValidUser) {
             console.log("user is valid");
-            onLogin();
+            onLogin(username);
         }
     }, [isValidUser, onLogin]);
 
     // Register new user
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (username && !users.includes(username)) {
+        if (username && !users.includes(username)) { 
+            console.log("newuser: ", [...users, username]);
             setUsers([...users, username]);
             onLogin(username);
         }
